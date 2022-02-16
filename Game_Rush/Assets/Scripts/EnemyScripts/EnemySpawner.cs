@@ -18,9 +18,9 @@ public class EnemySpawner : MonoBehaviour {
                        0, 0, 3, 2,
                        0, 3, 2, 3
                        };
-
+    int[] waveSizeArray = { 6, 6, 6 };
     int spawnKey = 0;
-    int waveOne = 6;
+    int waveKey = 0;
 
     void SpawnEnemy(int type, int spawnPosition, int positionOne, int positionTwo) {
         GameObject newEnemy = Instantiate(
@@ -34,7 +34,8 @@ public class EnemySpawner : MonoBehaviour {
         newEnemy.GetComponent<EnemyMovement>().SetPoint(enemyPositions[positionTwo]);
     }
 
-    void waveSpawn(int waveSize) {
+    public void waveSpawn() {
+        int waveSize = waveSizeArray[waveKey];
         if (spawnKey >= enemyInts.Length) {
             return;
         }
@@ -42,6 +43,7 @@ public class EnemySpawner : MonoBehaviour {
             SpawnEnemy(enemyInts[spawnKey], enemyInts[spawnKey + 1], enemyInts[spawnKey + 2], enemyInts[spawnKey + 3]);
             spawnKey += 4;
         }
+        waveKey++;
     }
 
     void Update()
@@ -50,7 +52,7 @@ public class EnemySpawner : MonoBehaviour {
             SpawnEnemy();
         }*/
         if (Input.GetKeyDown("s")) {
-            waveSpawn(waveOne);
+            waveSpawn();
         }
     }
 
