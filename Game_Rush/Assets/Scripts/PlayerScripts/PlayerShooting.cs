@@ -8,13 +8,10 @@ public class PlayerShooting : MonoBehaviour {
     int laserDPS = 1;
 
     [SerializeField]
-    float range = 100;
+    float range = 1000;
 
     [SerializeField]
     float fireRate = 0.50f;
-
-    // [SerializeField]
-    // public Transform gunEnd;
 
     [SerializeField]
     Image overHeat;
@@ -25,58 +22,67 @@ public class PlayerShooting : MonoBehaviour {
     float timer;
 
     LineRenderer laserFire;
-    Ray shootRay = new Ray();
-    RaycastHit shootHit;
+
+    RaycastHit hit;
+    Ray ray;
 
     float effectdisplay = 0.2f;
+
+    public Transform laserOrigin;
+    public Camera camera;
 
     // Start is called before the first frame update
     void Start() {
         laserFire = GetComponent<LineRenderer>();
     }
 
-    // Update is called once per frame
     void Update() {
+
+        Vector3 mousePosition = Input.mousePosition;
+        ray = camera.ScreenPointToRay(Input.mousePosition);
+
         timer += Time.deltaTime;
 
         if (Input.GetButton("Fire1") && timer >= fireRate && Time.timeScale != 0) {
             Shoot();
-
-
-
         }
         if (timer >= laserDPS * effectdisplay) {
             laserFire.enabled = false;
-        }
+        }   
     }
 
     public void Shoot() {
+        laserFire.SetPosition(0, laserOrigin.position);
         timer = 0f;
-        laserFire.SetPosition(0, transform.position);
 
         laserFire.enabled = true;
 
-        shootRay.origin = transform.position;
-        shootRay.direction = transform.forward;
-        /* this code is fine
-         * 
-        if (Physics.Raycast(shootRay, out shootHit, range))
-            
-        {               
-             *******just replace TargetBox with the enemy health script name***********
-            
-            TargetBox targetBox = shootHit.collider.GetComponent<TargetBox>();
-            if(targetBox != null)
-            {
-                targetBox.TakeDamage(laserDPS);
+        if (Physics.Raycast(ray, out hit)) {
+            if (hit.collider.tag == "Enemy") {
+                EnemyHealth enemyHealth = hit.collider.GetComponent<EnemyHealth>();
+                if (enemyHealth != null) {
+                    enemyHealth.TakeDamage(laserDPS);
+                }
             }
-            laserFire.SetPosition(1, shootHit.point);
+            laserFire.SetPosition(1, hit.point);
+            Debug.Log(hit.collider.gameObject.name.ToString());
+        }
+        return;
 
-        }
-        else
-        {
-            laserFire.SetPosition(1, shootRay.origin + shootRay.direction * range);
-        }
-            */
     }
 }
+/*                    Ray shootRay = new Ray();
+    RaycastHit shootHit;
+ *                shootRay.origin = camera.transform.position;
+      shootRay.direction = transform.forward;
+
+      if (Physics.Raycast(shootRay, out shootHit, range)) {
+          if (shootHit.collider.tag == "Enemy") {
+              EnemyHealth enemyHealth = shootHit.collider.GetComponent<EnemyHealth>();
+              if (enemyHealth != null) {
+                  enemyHealth.TakeDamage(laserDPS);
+              }
+          }
+          Debug.Log(shootHit.collider.gameObject.name.ToString());
+          laserFire.SetPosition(1, shootHit.point);
+      }*/
