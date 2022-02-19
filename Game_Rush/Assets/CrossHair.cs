@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CrossHair : MonoBehaviour
 {
+    public int verticalOffset = 10;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -13,6 +15,7 @@ public class CrossHair : MonoBehaviour
     // Update is called once per frame
     void Update() {
         Vector3 mousePosition = Input.mousePosition;
-        transform.position = mousePosition;
+        //transform.position = mousePosition;
+        transform.position = new Vector3(mousePosition.x, mousePosition.y+ verticalOffset, mousePosition.z);
     }
 }

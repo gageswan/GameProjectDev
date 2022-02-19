@@ -7,10 +7,15 @@ public class EnemyHealth : MonoBehaviour
     public int startingHealth = 10;
     public int currentHealth;
 
+    bool isDead = false;
+
+    public PlayerMover playerMover;
+
     // Start is called before the first frame update
     void Start()
     {
         currentHealth = startingHealth;
+        playerMover = FindObjectOfType<PlayerMover>();        
     }
 
     // Update is called once per frame
@@ -30,13 +35,14 @@ public class EnemyHealth : MonoBehaviour
     public void TakeDamage(int amount) {
         currentHealth -= amount;
 
-        if (currentHealth <= 0) {
+        if (currentHealth <= 0 && !isDead) {
             Death();
+            isDead = true;
         }
     }
 
     void Death() {
-        Destroy(gameObject, .5f); 
+        playerMover.enemiesDestroyed++;
+        Destroy(gameObject, .2f);        
     }
-
 }

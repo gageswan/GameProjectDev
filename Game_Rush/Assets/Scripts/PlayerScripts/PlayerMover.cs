@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class PlayerMover : MonoBehaviour
 {
-
+    public int enemiesDestroyed = 0;
+    public EnemySpawner enemySpawner;
     Animator anim;
+    [SerializeField] int enemies;
 
     // Start is called before the first frame update
     void Start()
@@ -16,11 +18,21 @@ public class PlayerMover : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        enemies = enemySpawner.enemiesList.Count;
+
+        if (enemiesDestroyed >= enemySpawner.enemiesList.Count) {
+            MovePlayer();
+        }
+
         if (Input.GetKeyDown("m")) {
-            anim.SetTrigger("movePlayer");
-            if (anim.speed == 0.0f) {
-                anim.speed = 1f;
-            }
+            MovePlayer();
+        }
+    }
+
+    public void MovePlayer() {
+        anim.SetTrigger("movePlayer");
+        if (anim.speed == 0.0f) {
+            anim.speed = 1f;
         }
     }
 

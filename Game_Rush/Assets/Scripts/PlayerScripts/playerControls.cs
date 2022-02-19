@@ -23,6 +23,8 @@ public class playerControls : MonoBehaviour
 
     Rigidbody rb;
 
+    public GameObject playerContainer;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -56,15 +58,11 @@ public class playerControls : MonoBehaviour
     void GroundCheck()
     {
         if(Physics.Raycast(transform.position, Vector3.down, disToGround + 0.1f))
-        {
-           
-               isGround = true;
-            
-            
+        {          
+               isGround = true;                   
         }
         else
-        {
-            
+        {            
             isGround = false;
         }
     }
@@ -74,7 +72,7 @@ public class playerControls : MonoBehaviour
     {
         if(transform.position.y < DeathLine.transform.position.y)
         {
-            transform.position = startingPos;
+            transform.position = playerContainer.transform.position;
         }
     }
 
