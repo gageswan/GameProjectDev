@@ -9,7 +9,8 @@ public class PlayerHealth : MonoBehaviour
     public int currentHealth;
     public bool isDead;
     public int damageTaken;
-
+    public MicroGameManager microGames;
+    public int playerLives = 5;
 
     // Start is called before the first frame update
     void Start()
@@ -36,6 +37,10 @@ public class PlayerHealth : MonoBehaviour
     }
 
     public void Death() {
-        isDead = true;
+        playerLives--;
+        //isDead = true;
+        if (playerLives > 0) {
+            microGames.SetActiveGame(0);
+        }
     }
 }

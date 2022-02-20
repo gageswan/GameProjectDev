@@ -12,11 +12,13 @@ public class DiskDropManager : MonoBehaviour
     Transform currentTarget;
     float speed = 5;
     float dist = 1;
+    MicroGameManager microGameManager;
 
-    void Start()
-    {
+    void Start() {
         updateTarget();
         diskArrayLength = disksArray.Length;
+        GameObject go = GameObject.Find("MicroGameContainer");
+        microGameManager = go.GetComponent<MicroGameManager>();
     }
 
     void Update()
@@ -38,8 +40,14 @@ public class DiskDropManager : MonoBehaviour
             diskNum++;
             if (diskNum >= diskArrayLength) {
                 diskNum = 0;
+                StartCoroutine(CountDown());
             }
         }
+    }
+
+    IEnumerator CountDown() {
+        yield return new WaitForSeconds(2f);
+        microGameManager.SetActiveGame(0);
     }
 
     void updateTarget() {

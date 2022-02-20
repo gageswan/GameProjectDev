@@ -14,6 +14,15 @@ public class EnemyMovement : MonoBehaviour
     public float timeTillAttack = 10f;
     Transform player;
 
+    public bool paused;
+
+    void OnPauseGame() {
+        paused = true;
+    }
+
+    void OnResumeGame() {
+        paused = false;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -28,9 +37,11 @@ public class EnemyMovement : MonoBehaviour
 
 
     // Update is called once per frame
-    void Update(){
-        Move();
-        moveTimer += Time.deltaTime;
+    void Update() {
+        if (!paused){ 
+            Move();         
+            moveTimer += Time.deltaTime;
+        }
     }
 
     private void FixedUpdate() {
