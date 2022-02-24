@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CrossHair : MonoBehaviour
 {
-    public int verticalOffset = 10;
+    public int verticalOffset = 0;
 
     // Start is called before the first frame update
     void Start()

@@ -35,11 +35,10 @@ public class DiskDropManager : MonoBehaviour
             updateTarget();
         }
 
-        if (Input.GetKeyDown("space")) {
+        if (Input.GetKeyDown("space") && diskNum < 4) {
             Instantiate(disksArray[diskNum], transform.position, transform.rotation);
             diskNum++;
             if (diskNum >= diskArrayLength) {
-                diskNum = 0;
                 StartCoroutine(CountDown());
             }
         }
@@ -48,6 +47,7 @@ public class DiskDropManager : MonoBehaviour
     IEnumerator CountDown() {
         yield return new WaitForSeconds(2f);
         microGameManager.SetActiveGame(0);
+        diskNum = 0;
     }
 
     void updateTarget() {

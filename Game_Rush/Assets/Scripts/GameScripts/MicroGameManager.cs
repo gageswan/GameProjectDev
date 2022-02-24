@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MicroGameManager : MonoBehaviour
 {
     public GameObject[] microGameViews;
     public GameObject[] microGame;
+    public Text healthText;
+    public Text damageText;
+    public EnemySpawner enemySpawner;
 
     // Start is called before the first frame update
     void Start()
@@ -43,6 +47,9 @@ public class MicroGameManager : MonoBehaviour
         foreach (GameObject go in objects) {
             go.SendMessage("OnPauseGame", SendMessageOptions.DontRequireReceiver);
         }
+        healthText.gameObject.SetActive(false);
+        damageText.gameObject.SetActive(false);
+        //enemySpawner.OnPauseGame();
     }
 
     void ResumeMainGame() {
@@ -50,5 +57,8 @@ public class MicroGameManager : MonoBehaviour
         foreach (GameObject go in objects) {
             go.SendMessage("OnResumeGame", SendMessageOptions.DontRequireReceiver);
         }
+        healthText.gameObject.SetActive(true);
+        damageText.gameObject.SetActive(true);
+        //enemySpawner.OnResumeGame();
     }
 }

@@ -552,8 +552,11 @@ MonoBehaviour:
   fireRate: 0.3
   overHeat: {fileID: 0}
   overHeat2: {fileID: 0}
+  effectdisplay: 0.1
   laserOrigin: {fileID: 579528648}
   camera: {fileID: 1477734192}
+  hitText: {fileID: 1970237285}
+  paused: 0
 --- !u!120 &325435649
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -1374,6 +1377,7 @@ RectTransform:
   m_Children:
   - {fileID: 1717263543}
   - {fileID: 2124994721}
+  - {fileID: 1970237284}
   m_Father: {fileID: 2060182404}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1612,6 +1616,9 @@ MonoBehaviour:
   - {fileID: 482153542}
   microGame:
   - {fileID: 1149914452}
+  healthText: {fileID: 2124994722}
+  damageText: {fileID: 1970237285}
+  enemySpawner: {fileID: 1736070219}
 --- !u!4 &819702095
 Transform:
   m_ObjectHideFlags: 0
@@ -2299,7 +2306,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 20}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 10, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1717263544
 MonoBehaviour:
@@ -2314,14 +2321,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2351,7 +2358,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e93113e155a9284997fe9fca68cfadb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  verticalOffset: 15
+  verticalOffset: 0
 --- !u!1 &1736070218
 GameObject:
   m_ObjectHideFlags: 0
@@ -2398,6 +2405,7 @@ MonoBehaviour:
   - {fileID: 194883651}
   - {fileID: 970163807}
   - {fileID: 912900086}
+  paused: 0
 --- !u!4 &1736070220
 Transform:
   m_ObjectHideFlags: 0
@@ -2936,6 +2944,85 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1970237283
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1970237284}
+  - component: {fileID: 1970237286}
+  - component: {fileID: 1970237285}
+  m_Layer: 5
+  m_Name: DamageGivenText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1970237284
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1970237283}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 539989144}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 160, y: 30}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1970237285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1970237283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 14
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 10
+    m_MaxSize: 40
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: 
+--- !u!222 &1970237286
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1970237283}
+  m_CullTransparentMesh: 1
 --- !u!1 &1984664119
 GameObject:
   m_ObjectHideFlags: 0
@@ -3200,6 +3287,7 @@ MonoBehaviour:
   damageTaken: 0
   microGames: {fileID: 819702094}
   playerLives: 5
+  paused: 0
 --- !u!1 &2124994720
 GameObject:
   m_ObjectHideFlags: 0

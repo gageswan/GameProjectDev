@@ -26,10 +26,20 @@ public class PlayerShooting : MonoBehaviour {
     RaycastHit hit;
     Ray ray;
 
-    float effectdisplay = 0.2f;
+    public float effectdisplay = 0.1f;
 
     public Transform laserOrigin;
     public Camera camera;
+    public Text hitText;
+
+    public bool paused;
+    void OnPauseGame() {
+        paused = true;
+    }
+
+    void OnResumeGame() {
+        paused = false;
+    }
 
     // Start is called before the first frame update
     void Start() {
@@ -43,7 +53,7 @@ public class PlayerShooting : MonoBehaviour {
 
         timer += Time.deltaTime;
 
-        if (Input.GetButton("Fire1") && timer >= fireRate && Time.timeScale != 0) {
+        if (Input.GetButton("Fire1") && timer >= fireRate && Time.timeScale != 0 && !paused) {
             Shoot();
         }
         if (timer >= laserDPS * effectdisplay) {
@@ -62,13 +72,19 @@ public class PlayerShooting : MonoBehaviour {
                 EnemyHealth enemyHealth = hit.collider.GetComponent<EnemyHealth>();
                 if (enemyHealth != null) {
                     enemyHealth.TakeDamage(laserDPS);
+                    DisplayDamageText(laserDPS);
                 }
             }
             laserFire.SetPosition(1, hit.point);
             Debug.Log(hit.collider.gameObject.name.ToString());
         }
         return;
+    }
 
+    void DisplayDamageText(int damage) {
+        Vector3 mousePosition = Input.mousePosition;
+        hitText.gameObject.transform.position = new Vector3(mousePosition.x, mousePosition.y + 10f, mousePosition.z);
+        hitText.text = damage.ToString() + " Damage!";
     }
 }
 /*                    Ray shootRay = new Ray();

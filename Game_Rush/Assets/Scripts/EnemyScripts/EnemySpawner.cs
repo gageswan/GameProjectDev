@@ -13,12 +13,12 @@ public class EnemySpawner : MonoBehaviour {
     public Transform[] enemyPositions;
     int[] enemyInts = {
             //1st Wave - 6
-                       0, 1, 0, 1,
-                       0, 4, 1, 0,
-                       0, 1, 3, 2,
-                       0, 4, 2, 3,
-                       0, 0, 3, 2,
-                       0, 3, 2, 3,
+            0, 1, 0, 1,
+            0, 4, 1, 0,
+            0, 1, 3, 2,
+            0, 4, 2, 3,
+            0, 0, 3, 2,
+            0, 3, 2, 3,
             //2nd Wave - 5
             0, 0, 3, 0,
             0, 1, 0, 3,
@@ -41,6 +41,17 @@ public class EnemySpawner : MonoBehaviour {
     int spawnKey = 0;
     int waveKey = 0;
 
+    protected bool paused;
+    void OnPauseGame() {
+        paused = true;
+        Debug.Log("Pause!");
+    }
+
+    void OnResumeGame() {
+        paused = false;
+        Debug.Log("Unpause!");
+    }
+
     void SpawnEnemy(int type, int spawnPosition, int positionOne, int positionTwo) {
         GameObject newEnemy = Instantiate(
             enemyPrefabs[type],
@@ -58,12 +69,13 @@ public class EnemySpawner : MonoBehaviour {
         StartCoroutine(StartSpawn());
     }
 
-    IEnumerator StartSpawn() {
+    IEnumerator StartSpawn() {        
         int waveSize = waveSizeArray[waveKey];
         if (spawnKey >= enemyInts.Length) {
             yield break;
         }
         for (int i = 1; i <= waveSize; i++) {
+            yield return new WaitWhile(() => paused);
             SpawnEnemy(enemyInts[spawnKey], enemyInts[spawnKey + 1], enemyInts[spawnKey + 2], enemyInts[spawnKey + 3]);
             spawnKey += 4;            
             yield return new WaitForSeconds(Random.Range(1.0f, 2.0f));

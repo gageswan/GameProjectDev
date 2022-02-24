@@ -12,6 +12,16 @@ public class PlayerHealth : MonoBehaviour
     public MicroGameManager microGames;
     public int playerLives = 5;
 
+    public bool paused;
+    void OnPauseGame() {
+        paused = true;
+    }
+
+    void OnResumeGame() {
+        paused = false;
+    }
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,12 +32,16 @@ public class PlayerHealth : MonoBehaviour
     void Update()
     {
         damageTaken =  (currentHealth - startingHealth) * - 1;
-        DisplayGameText();
+        if (!paused) {
+            DisplayGameText(); 
+        }
     }
 
     void DisplayGameText() {
-        GetComponentInChildren<Text>().text = damageTaken.ToString() + " Damage Taken";
-            }
+        if (GetComponentInChildren<Text>().gameObject.activeInHierarchy) { 
+            GetComponentInChildren<Text>().text = damageTaken.ToString() + " Damage Taken";
+        }
+    }
 
     public void TakeDamage(int d) {
         currentHealth -= d;
