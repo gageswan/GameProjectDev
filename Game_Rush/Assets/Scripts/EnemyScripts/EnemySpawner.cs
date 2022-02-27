@@ -36,8 +36,44 @@ public class EnemySpawner : MonoBehaviour {
             0, 3, 2, 3,
             0, 4, 1, 0, 
             1, 2, 4, 5,
+            //4th Wave - 1
+            0, 1, 0, 1,
+            //5th Wave - 2
+            0, 1, 0, 1,
+            0, 1, 0, 1,
+            //6th Wave - 3
+            0, 1, 0, 1,
+            0, 1, 0, 1,
+            0, 1, 0, 1,
+            //7th Wave - 4
+            0, 1, 0, 1,
+            0, 1, 0, 1,
+            0, 1, 0, 1,
+            0, 1, 0, 1,
+            //8th Wave - 5
+            0, 1, 0, 1,
+            0, 1, 0, 1,
+            0, 1, 0, 1,
+            0, 1, 0, 1,
+            0, 1, 0, 1,
+            //9th Wave - 6
+            0, 1, 0, 1,
+            0, 1, 0, 1,
+            0, 1, 0, 1,
+            0, 1, 0, 1,
+            0, 1, 0, 1,
+            0, 1, 0, 1,
+            //10 Wave - 7
+            0, 1, 0, 1,
+            0, 1, 0, 1,
+            0, 1, 0, 1,
+            0, 1, 0, 1,
+            0, 1, 0, 1,
+            0, 1, 0, 1,
+            0, 1, 0, 1,
+            0, 1, 0, 1,
                        };
-    int[] waveSizeArray = { 6, 5, 9 };
+    int[] waveSizeArray = { 6, 5, 9, 1, 2, 3, 4, 5, 6, 7 };
     int spawnKey = 0;
     int waveKey = 0;
 
@@ -64,8 +100,7 @@ public class EnemySpawner : MonoBehaviour {
         newEnemy.GetComponent<EnemyMovement>().SetPoint(enemyPositions[positionTwo]);
     }
 
-
-    public void waveSpawn() {
+    public void WaveSpawn() {
         StartCoroutine(StartSpawn());
     }
 

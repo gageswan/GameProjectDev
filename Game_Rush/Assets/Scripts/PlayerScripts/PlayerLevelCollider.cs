@@ -9,7 +9,7 @@ public class PlayerLevelCollider : MonoBehaviour {
     private void OnTriggerEnter(Collider other) {
         if (other.tag == "FightZone") {
             Debug.Log("Triggered Fight!");
-            enemySpawner.waveSpawn();            
+            enemySpawner.WaveSpawn();            
         }
     }
 }
